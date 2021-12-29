@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace UMeng\Track;
 
 use GuzzleHttp;
+use JsonException;
 use UMeng\Track\Exception\TokenExpiredException;
 
 class Client
@@ -58,7 +59,7 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException) {
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
@@ -74,7 +75,7 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\Throwable) {
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
@@ -90,7 +91,7 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\Throwable) {
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
@@ -104,7 +105,7 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\Throwable) {
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
