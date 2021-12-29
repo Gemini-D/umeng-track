@@ -28,36 +28,14 @@ class Client
     }
 
     /**
-     * array(11) {
-     * ["appid"]=>
-     *    string(5) "55321"
-     * ["app_name"]=>
-     *    string(12) "月食安卓"  //应用名称
-     * ["os_type"]=>
-     *    string(1) "1"
-     * ["app_key"]=>
-     *    string(24) "5d11c1d3570df36eae0008d8"
-     * ["add_date"]=>
-     *    string(10) "2019-08-21"
-     * ["app_type"]=>
-     *    string(1) "2" //1 安卓、2 IOS
-     * ["is_auth"]=>
-     *    int(1)
-     * ["role_type"]=>
-     *    string(1) "2"
-     * ["app_auth_type"]=>
-     *    int(0)
-     * ["is_chan_user"]=>
-     *    int(0)
-     * ["os_name"]=>
-     *    string(7) "Android" //系统平台 os_name IOS、Android、
-     * }.
-     */
-    /**
-     * @return [
-     *     'appid' => 1,
+     * @return [[
+     *     'appid' => '1',
      *     'app_name' => '',
-     * ]
+     *     'os_type' => '1', // 1安卓 2IOS
+     *     'app_key' => '',
+     *     'app_type' => '1', // 1安卓 2IOS
+     *     'os_name' => '',
+     * ]]
      */
     public function getAppList(): array
     {
@@ -75,7 +53,7 @@ class Client
         return $result['ext']['list'] ?? [];
     }
 
-    protected function client(): GuzzleHttp\Client
+    public function client(): GuzzleHttp\Client
     {
         $config = [
             'base_uri' => $this->baseUri,

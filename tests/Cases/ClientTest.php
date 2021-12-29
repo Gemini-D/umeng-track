@@ -11,6 +11,8 @@ declare(strict_types=1);
  */
 namespace HyperfTest\Cases;
 
+use GuzzleHttp\Psr7\Response;
+use Mockery;
 use UMeng\Track\Client;
 use UMeng\Track\Exception\TokenExpiredException;
 
@@ -20,6 +22,11 @@ use UMeng\Track\Exception\TokenExpiredException;
  */
 class ClientTest extends AbstractTestCase
 {
+    protected function tearDown(): void
+    {
+        Mockery::close();
+    }
+
     public function testGetAppListWithTokenExpired()
     {
         $this->expectException(TokenExpiredException::class);
@@ -27,5 +34,28 @@ class ClientTest extends AbstractTestCase
         $client = new Client('xxx');
 
         $client->getAppList();
+    }
+
+    public function testGetAppList()
+    {
+        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
+        $client->shouldReceive('client')->andReturn($this->client());
+        $list = $client->getAppList();
+
+        $this->assertNotEmpty($list);
+        $this->assertSame('555', $list[0]['appid']);
+    }
+
+    protected function client()
+    {
+        $client = Mockery::mock(\GuzzleHttp\Client::class);
+        $client->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($url) {
+            if (str_contains($url, 'getapplist')) {
+                $body = file_get_contents(__DIR__ . '/../get_app_list.json');
+            }
+
+            return new Response(body: $body);
+        });
+        return $client;
     }
 }

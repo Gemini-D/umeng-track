@@ -1,0 +1,36 @@
+{
+    "f": "getAppList",
+    "ec": 0,
+    "ext": {
+        "list": [
+            {
+                "appid": "555",
+                "app_name": "测试IOS",
+                "os_type": "2",
+                "app_key": "xxx",
+                "add_date": "2019-08-28",
+                "app_type": "2",
+                "is_auth": 1,
+                "role_type": "2",
+                "app_auth_type": 0,
+                "is_chan_user": 0,
+                "os_name": "iOS"
+            },
+            {
+                "appid": "556",
+                "app_name": "测试安卓",
+                "os_type": "1",
+                "app_key": "yyy",
+                "add_date": "2019-08-21",
+                "app_type": "2",
+                "is_auth": 1,
+                "role_type": "2",
+                "app_auth_type": 0,
+                "is_chan_user": 0,
+                "os_name": "Android"
+            }
+        ],
+        "num": 2,
+        "total_page": 1
+    }
+}
