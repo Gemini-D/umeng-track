@@ -1,0 +1,32 @@
+{
+  "f": "getMonitorList",
+  "ec": 0,
+  "ext": {
+    "list": [
+      {
+        "mid": "3331",
+        "add_date": "2021-02-12",
+        "m_name": "运营测试1",
+        "rpid": "0",
+        "chan_id": "0",
+        "chan_name": "weibo",
+        "short_url": "https://at.umtrack.com",
+        "is_show": 1,
+        "show_url": "https://gxbr.cnzz.com"
+      },
+      {
+        "mid": "3332",
+        "add_date": "2021-02-13",
+        "m_name": "运营测试2",
+        "rpid": "0",
+        "chan_id": "0",
+        "chan_name": "weibo",
+        "short_url": "https://at.umtrack.com",
+        "is_show": 1,
+        "show_url": "https://gxbr.cnzz.com"
+      }
+    ],
+    "num": "50",
+    "total_page": 1
+  }
+}

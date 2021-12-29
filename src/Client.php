@@ -80,4 +80,18 @@ class Client
         ];
         return new GuzzleHttp\Client($config);
     }
+
+    public function getMonitorList(string $rpid): array
+    {
+        $response = $this->client()->get('index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=');
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\Throwable) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
+    }
 }
