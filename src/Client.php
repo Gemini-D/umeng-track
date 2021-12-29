@@ -81,7 +81,7 @@ class Client
         return $result['ext']['list'] ?? [];
     }
 
-    public function getActiveTrEnd(string $rpid, string $mid): array
+    public function getActiveTrend(string $rpid, string $mid): array
     {
         $response = $this->client()
             ->get('index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=50&page_num=1&order_type=day&order_value=-1&st=' . date('Y-m-d') . '&et=' . (date('Y-m-d', strtotime('-1 day'))));

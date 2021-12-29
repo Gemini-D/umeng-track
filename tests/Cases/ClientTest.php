@@ -70,7 +70,7 @@ class ClientTest extends AbstractTestCase
     {
         $client = Mockery::mock(Client::class . '[client]', ['xxx']);
         $client->shouldReceive('client')->andReturn($this->client());
-        $list = $client->getActiveTrEnd('111', '222');
+        $list = $client->getActiveTrend('111', '222');
 
         $this->assertNotEmpty($list);
         $this->assertSame('2020-02-28', $list[0]['day']);
@@ -90,7 +90,7 @@ class ClientTest extends AbstractTestCase
                 $body = file_get_contents(__DIR__ . '/../get_monitor_list.json');
             }
             if (str_contains($url, 'getactivetrend')) {
-                $body = file_get_contents(__DIR__ . '/../get_active_tr_end.json');
+                $body = file_get_contents(__DIR__ . '/../get_active_trend.json');
             }
 
             return new Response(body: $body);
