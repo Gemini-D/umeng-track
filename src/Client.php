@@ -53,6 +53,22 @@ class Client
         return $result['ext']['list'] ?? [];
     }
 
+    public function getPlanList(string $appid): array
+    {
+        $response = $this->client()
+            ->get('index.php?c=apps&a=getplanlist&appid=' . $appid . '&page_num=1&limit=20&date_type=0&search=&order_value=-1&order_type=click_pv');
+
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\Throwable) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
+    }
+
     public function client(): GuzzleHttp\Client
     {
         $config = [
