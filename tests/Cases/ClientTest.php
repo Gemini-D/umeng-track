@@ -56,6 +56,26 @@ class ClientTest extends AbstractTestCase
         $this->assertSame('195', $list[0]['rpid']);
     }
 
+    public function testGetMonitorList()
+    {
+        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
+        $client->shouldReceive('client')->andReturn($this->client());
+        $list = $client->getMonitorList('555');
+
+        $this->assertNotEmpty($list);
+        $this->assertSame('3331', $list[0]['mid']);
+    }
+
+    public function testGetActiveTrEnd()
+    {
+        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
+        $client->shouldReceive('client')->andReturn($this->client());
+        $list = $client->getActiveTrEnd('111', '222');
+
+        $this->assertNotEmpty($list);
+        $this->assertSame('2020-02-28', $list[0]['day']);
+    }
+
     protected function client()
     {
         $client = Mockery::mock(\GuzzleHttp\Client::class);
@@ -65,6 +85,12 @@ class ClientTest extends AbstractTestCase
             }
             if (str_contains($url, 'getplanlist')) {
                 $body = file_get_contents(__DIR__ . '/../get_plan_list.json');
+            }
+            if (str_contains($url, 'getmonitorlist')) {
+                $body = file_get_contents(__DIR__ . '/../get_monitor_list.json');
+            }
+            if (str_contains($url, 'getactivetrend')) {
+                $body = file_get_contents(__DIR__ . '/../get_active_tr_end.json');
             }
 
             return new Response(body: $body);
