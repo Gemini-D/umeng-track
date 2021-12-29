@@ -1,0 +1,58 @@
+{
+    "f": "getactivetrend",
+    "ec": 0,
+    "ext": {
+        "list": [
+            {
+                "activate_rate": 0.1,
+                "activate_uv": 1,
+                "activate_device": 1,
+                "click_pv": 1,
+                "click_uv": 1,
+                "total_activate_device": 1,
+                "day": "2020-02-28",
+                "first_register_device": null,
+                "first_pay_device": null,
+                "view_pv": 0,
+                "view_uv": 0,
+                "click_rate": "0.0000",
+                "register": null,
+                "login": null,
+                "role": null,
+                "pay_device": null,
+                "amount": null,
+                "register_rate": null,
+                "click_buy_uv": null,
+                "amount_avg": null,
+                "pay_order_device": null,
+                "order_amount": null
+            },
+            {
+                "activate_rate": 0.2,
+                "activate_uv": 0,
+                "activate_device": 0,
+                "click_pv": 0,
+                "click_uv": 0,
+                "total_activate_device": 0,
+                "day": "2020-02-27",
+                "first_register_device": null,
+                "first_pay_device": null,
+                "view_pv": 0,
+                "view_uv": 0,
+                "click_rate": "0.0000",
+                "register": null,
+                "login": null,
+                "role": null,
+                "pay_device": null,
+                "amount": null,
+                "register_rate": null,
+                "click_buy_uv": null,
+                "amount_avg": null,
+                "pay_order_device": null,
+                "order_amount": null
+            }
+        ],
+        "num": 2,
+        "total_page": 1
+    }
+}

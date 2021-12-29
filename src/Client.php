@@ -27,6 +27,18 @@ class Client
     {
     }
 
+    public function client(): GuzzleHttp\Client
+    {
+        $config = [
+            'base_uri' => $this->baseUri,
+            'headers' => [
+                'cookie' => 'ap_ckid=' . $this->token,
+                'user-agent' => $this->userAgent,
+            ],
+        ];
+        return new GuzzleHttp\Client($config);
+    }
+
     /**
      * @return [[
      *     'appid' => '1',
@@ -69,15 +81,33 @@ class Client
         return $result['ext']['list'] ?? [];
     }
 
-    public function client(): GuzzleHttp\Client
+    public function getActiveTrend(string $rpid, string $mid): array
     {
-        $config = [
-            'base_uri' => $this->baseUri,
-            'headers' => [
-                'cookie' => 'ap_ckid=' . $this->token,
-                'user-agent' => $this->userAgent,
-            ],
-        ];
-        return new GuzzleHttp\Client($config);
+        $response = $this->client()
+            ->get('index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=50&page_num=1&order_type=day&order_value=-1&st=' . date('Y-m-d') . '&et=' . (date('Y-m-d', strtotime('-1 day'))));
+
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\Throwable) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
+    }
+
+    public function getMonitorList(string $rpid): array
+    {
+        $response = $this->client()->get('index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=');
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\Throwable) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
     }
 }
