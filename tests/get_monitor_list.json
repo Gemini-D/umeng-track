@@ -1,0 +1,43 @@
+{
+  "f": "getMonitorList",
+  "ec": 0,
+  "ext": {
+    "list": [
+      {
+        "mid": "125",
+        "add_date": "xxxx-xx-xx",
+        "m_name": "xxx",
+        "rpid": "122",
+        "chan_id": "123",
+        "chan_name": "xx",
+        "short_url": "https://www.example.com/yKjqqu",
+        "is_show": 1,
+        "show_url": "https://www.example.com/app.htm?si=1259948&gid=73057&rpid=195715&cid=30574&ht=appview"
+      },
+      {
+        "mid": "122",
+        "add_date": "xxxx-xx-xx",
+        "m_name": "xx",
+        "rpid": "127",
+        "chan_id": "123",
+        "chan_name": "xx",
+        "short_url": "https://www.example.com/yyO9Pf",
+        "is_show": 1,
+        "show_url": "https://www.example.com/app.htm?si=1259612&gid=73057&rpid=195715&cid=30574&ht=appview"
+      },
+      {
+        "mid": "126",
+        "add_date": "xxxx-xx-xx",
+        "m_name": "xxx",
+        "rpid": "121",
+        "chan_id": "123",
+        "chan_name": "\u5fae\u4fe1",
+        "short_url": "https://www.example.com/XjqC8j",
+        "is_show": 1,
+        "show_url": "https://www.example.com/app.htm?si=1258876&gid=73057&rpid=195715&cid=30574&ht=appview"
+      }
+    ],
+    "num": "49",
+    "total_page": 1
+  }
+}

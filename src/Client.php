@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace UMeng\Track;
 
 use GuzzleHttp;
+use JsonException;
 use UMeng\Track\Exception\TokenExpiredException;
 
 class Client
@@ -46,7 +47,7 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\JsonException) {
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
@@ -62,7 +63,39 @@ class Client
 
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (\Throwable) {
+        } catch (JsonException) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
+    }
+
+    public function getMonitorList(string $rpid): array
+    {
+        $response = $this->client()
+            ->get('index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=&_=1640597187180');
+
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['ext']['list'] ?? [];
+    }
+
+    public function getActiveTrend(string $rpid, string $mid): array
+    {
+        $response = $this->client()
+            ->get('index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=50&page_num=1&order_type=day&order_value=-1&st=2021-11-27&et=2021-12-26&_=1640592908914');
+
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
