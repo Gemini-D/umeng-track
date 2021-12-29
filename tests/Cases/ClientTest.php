@@ -46,12 +46,25 @@ class ClientTest extends AbstractTestCase
         $this->assertSame('555', $list[0]['appid']);
     }
 
+    public function testGetPlanList()
+    {
+        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
+        $client->shouldReceive('client')->andReturn($this->client());
+        $list = $client->getPlanList('555');
+
+        $this->assertNotEmpty($list);
+        $this->assertSame('195', $list[0]['rpid']);
+    }
+
     protected function client()
     {
         $client = Mockery::mock(\GuzzleHttp\Client::class);
         $client->shouldReceive('get')->withAnyArgs()->andReturnUsing(function ($url) {
             if (str_contains($url, 'getapplist')) {
                 $body = file_get_contents(__DIR__ . '/../get_app_list.json');
+            }
+            if (str_contains($url, 'getplanlist')) {
+                $body = file_get_contents(__DIR__ . '/../get_plan_list.json');
             }
 
             return new Response(body: $body);
