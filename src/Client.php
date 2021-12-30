@@ -57,13 +57,7 @@ class Client
 
         $body = (string) $response->getBody();
 
-        try {
-            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            throw new TokenExpiredException();
-        }
-
-        return $result['ext']['list'] ?? [];
+        return $this->result ( $body );
     }
 
     public function getPlanList(string $appid): array
@@ -73,42 +67,42 @@ class Client
 
         $body = (string) $response->getBody();
 
-        try {
-            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            throw new TokenExpiredException();
-        }
-
-        return $result['ext']['list'] ?? [];
+        return $this->result ( $body );
     }
 
-    public function getActiveTrend(string $rpid, string $mid): array
+    public function getMonitorList ( string $rpid )
     {
         $response = $this->client()
-            ->get('index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=50&page_num=1&order_type=day&order_value=-1&st=' . date('Y-m-d') . '&et=' . (date('Y-m-d', strtotime('-1 day'))));
+            ->get ( 'index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=&_=' . $this->microtime_format() );
+        $body = ( string ) $response->getBody();
 
-        $body = (string) $response->getBody();
+        return $this->result ( $body );
+    }
 
+    public function getActiveTrend ( string $rpid, string $mid )
+    {
+        $response = $this->client()
+            ->get ( 'https://apptrack.umeng.com/index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=20&page_num=1&order_type=day&order_value=-1&st=' . date ( 'Y-m-d' ) . '&et=' . date ( 'Y-m-d', strtotime ( '-1 day' ) ) . '&_=' . $this->microtime_format() );
+        $body = ( string ) $response->getBody();
+
+        return $this->result ( $body );
+    }
+
+    protected function result ( $body )
+    {
         try {
-            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
+            $result = json_decode ( $body, true, 512, JSON_THROW_ON_ERROR );
+        } catch ( JsonException ) {
             throw new TokenExpiredException();
         }
 
         return $result['ext']['list'] ?? [];
     }
 
-    public function getMonitorList(string $rpid): array
+    public function microtime_format ()
     {
-        $response = $this->client()->get('index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=');
-        $body = (string) $response->getBody();
+        list ( $usec, $sec ) = explode ( ' ', microtime() );
 
-        try {
-            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            throw new TokenExpiredException();
-        }
-
-        return $result['ext']['list'] ?? [];
+        return ( ( float ) $usec + ( float ) $sec );
     }
 }
