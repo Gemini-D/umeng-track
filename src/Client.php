@@ -19,12 +19,10 @@ class Client
 {
     protected string $baseUri = 'https://apptrack.umeng.com';
 
-    protected string $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36';
-
     /**
      * @param string $token Cookies 中的 ap_ckid
      */
-    public function __construct(protected string $token)
+    public function __construct(protected string $token, protected string $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36')
     {
     }
 
@@ -88,13 +86,6 @@ class Client
         return $this->result($body);
     }
 
-    public function microtime_format()
-    {
-        [$usec, $sec] = explode(' ', microtime());
-
-        return  (float) $usec + (float) $sec;
-    }
-
     protected function result($body)
     {
         try {
@@ -104,5 +95,12 @@ class Client
         }
 
         return $result['ext']['list'] ?? [];
+    }
+
+    protected function microtime_format()
+    {
+        [$usec, $sec] = explode(' ', microtime());
+
+        return (int) ((float) $usec + (float) $sec * 1000);
     }
 }
