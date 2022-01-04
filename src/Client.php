@@ -77,10 +77,10 @@ class Client
         return $this->result($body);
     }
 
-    public function getActiveTrend(string $rpid, string $mid)
+    public function getActiveTrend(string $rpid, string $mid, int $pageNum = 1)
     {
         $response = $this->client()
-            ->get('https://apptrack.umeng.com/index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=20&page_num=1&order_type=day&order_value=-1&st=' . date('Y-m-d') . '&et=' . date('Y-m-d', strtotime('-1 day')) . '&_=' . $this->microtime_format());
+            ->get('https://apptrack.umeng.com/index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=20&page_num=' . $pageNum . '&order_type=day&order_value=-1&st=1970-01-01&et=' . date('Y-m-d', strtotime('-1 day')) . '&_=' . $this->microtime_format());
         $body = (string) $response->getBody();
 
         return $this->result($body);
