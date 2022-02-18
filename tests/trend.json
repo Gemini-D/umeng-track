@@ -1,0 +1,70 @@
+{
+  "data": {
+    "summary": {
+      "items": {
+        "pv": "0",
+        "newpv": "0",
+        "ip": "0",
+        "uv": "0",
+        "newuv": "0",
+        "session": "0",
+        "sessionpass": "0",
+        "stime": "0",
+        "outpv": "0",
+        "outper": "100.00%",
+        "averagepv": "1.00",
+        "averagestime": "0分18秒",
+        "averageupv": "9.99",
+        "averagenewupv": "9.99",
+        "pvpro": "100%"
+      }
+    },
+    "fluxList": {
+      "items": [
+        {
+          "pv": "0",
+          "newpv": "0",
+          "ip": "0",
+          "uv": "0",
+          "newuv": "0",
+          "session": "0",
+          "sessionpass": "0",
+          "stime": "0",
+          "outpv": "0",
+          "averagepv": "1.02",
+          "averagestime": "2分10秒",
+          "outper": "100.0%",
+          "averageupv": "1.22",
+          "key": "2022-02-18"
+        },
+        {
+          "pv": "0",
+          "newpv": "0",
+          "ip": "0",
+          "uv": "0",
+          "newuv": "0",
+          "session": "0",
+          "sessionpass": "0",
+          "stime": "0",
+          "outpv": "0",
+          "averagepv": "1.02",
+          "averagestime": "2分10秒",
+          "outper": "100.0%",
+          "averageupv": "1.22",
+          "key": "2022-02-17"
+        }
+      ],
+      "page": {
+        "totalCount": "2",
+        "pageSize": "2",
+        "totalPage": "1",
+        "currentPage": "1",
+        "beginIndex": "0",
+        "endIndex": "1",
+        "hasPrevious": "",
+        "hasNext": ""
+      },
+      "page_total": []
+    }
+  }
+}

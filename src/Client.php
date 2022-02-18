@@ -26,10 +26,20 @@ class Client
     {
     }
 
+    public function setBaseUri($baseUri = 'https://web.umeng.com'): void
+    {
+        $this->baseUri = $baseUri;
+    }
+
+    public function getBaseUri(): string
+    {
+        return $this->baseUri;
+    }
+
     public function client(): GuzzleHttp\Client
     {
         $config = [
-            'base_uri' => $this->baseUri,
+            'base_uri' => $this->getBaseUri(),
             'headers' => [
                 'cookie' => 'ap_ckid=' . $this->token,
                 'user-agent' => $this->userAgent,
@@ -38,16 +48,6 @@ class Client
         return new GuzzleHttp\Client($config);
     }
 
-    /**
-     * @return [[
-     *     'appid' => '1',
-     *     'app_name' => '',
-     *     'os_type' => '1', // 1安卓 2IOS
-     *     'app_key' => '',
-     *     'app_type' => '1', // 1安卓 2IOS
-     *     'os_name' => '',
-     * ]]
-     */
     public function getAppList(): array
     {
         $response = $this->client()
@@ -84,6 +84,38 @@ class Client
         $body = (string) $response->getBody();
 
         return $this->result($body);
+    }
+
+    public function trend()
+    {
+        $this->setBaseUri();
+        $response = $this->client()
+            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=1_pageType=30&siteid=1279951129&st=' . date('Y-m-d', strtotime('-6 day')) . '&et=' . date('Y-m-d') . '&_=' . $this->microtime_format());
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['data'];
+    }
+
+    public function page()
+    {
+        $this->setBaseUri();
+        $response = $this->client()
+            ->get('main.php?c=cont&a=page&ajax=module=summarysource|module=safeinfo|module=statistics_orderBy=pv_orderType=-1_dataType=source_currentPage=1_pageType=90&siteid=1279951129&st=' . date('Y-m-d') . '&et=' . date('Y-m-d') . '&sourcetype=&condtype=&condname=&condvalue=');
+        $body = (string) $response->getBody();
+
+        try {
+            $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
+        } catch (JsonException) {
+            throw new TokenExpiredException();
+        }
+
+        return $result['data'];
     }
 
     protected function result($body)
