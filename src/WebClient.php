@@ -12,12 +12,13 @@ declare(strict_types=1);
 namespace UMeng\Track;
 
 use GuzzleHttp;
+use GuzzleHttp\Psr7\Response;
 use JsonException;
 use UMeng\Track\Exception\TokenExpiredException;
 
-class Client
+class WebClient
 {
-    protected string $baseUri = 'https://apptrack.umeng.com';
+    protected $baseUri = 'https://web.umeng.com';
 
     /**
      * @param string $token Cookies 中的 ap_ckid
@@ -38,53 +39,33 @@ class Client
         return new GuzzleHttp\Client($config);
     }
 
-    public function getAppList(): array
+    public function trend()
     {
         $response = $this->client()
-            ->get('index.php?c=apps&a=getapplist&page_num=1&limit=500');
+            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=1_pageType=30&siteid=1279951129&st=' . date('Y-m-d', strtotime('-6 day')) . '&et=' . date('Y-m-d') . '&_=' . $this->microtime_format());
 
-        $body = (string) $response->getBody();
-
-        return $this->result($body);
+        return $this->body($response);
     }
 
-    public function getPlanList(string $appid): array
+    public function page()
     {
         $response = $this->client()
-            ->get('index.php?c=apps&a=getplanlist&appid=' . $appid . '&page_num=1&limit=20&date_type=0&search=&order_value=-1&order_type=click_pv');
+            ->get('main.php?c=cont&a=page&ajax=module=summarysource|module=safeinfo|module=statistics_orderBy=pv_orderType=-1_dataType=source_currentPage=1_pageType=90&siteid=1279951129&st=' . date('Y-m-d') . '&et=' . date('Y-m-d') . '&sourcetype=&condtype=&condname=&condvalue=');
 
-        $body = (string) $response->getBody();
-
-        return $this->result($body);
+        return $this->body($response);
     }
 
-    public function getMonitorList(string $rpid)
+    protected function body(Response $response)
     {
-        $response = $this->client()
-            ->get('index.php?c=apps&a=getmonitorlist&rpid=' . $rpid . '&page_num=1&limit=200&search=&_=' . $this->microtime_format());
         $body = (string) $response->getBody();
 
-        return $this->result($body);
-    }
-
-    public function getActiveTrend(string $rpid, string $mid, int $pageNum = 1)
-    {
-        $response = $this->client()
-            ->get('https://apptrack.umeng.com/index.php?c=appreport&a=getactivetrend&rpid=' . $rpid . '&mid=' . $mid . '&limit=20&page_num=' . $pageNum . '&order_type=day&order_value=-1&st=1970-01-01&et=' . date('Y-m-d', strtotime('-1 day')) . '&_=' . $this->microtime_format());
-        $body = (string) $response->getBody();
-
-        return $this->result($body);
-    }
-
-    protected function result($body)
-    {
         try {
             $result = json_decode($body, true, 512, JSON_THROW_ON_ERROR);
         } catch (JsonException) {
             throw new TokenExpiredException();
         }
 
-        return $result['ext']['list'] ?? [];
+        return $result['data'];
     }
 
     protected function microtime_format()

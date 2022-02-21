@@ -77,27 +77,6 @@ class ClientTest extends AbstractTestCase
         $this->assertSame('2020-02-28', $list[0]['day']);
     }
 
-    public function testTrend()
-    {
-        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
-        $client->shouldReceive('client')->andReturn($this->client());
-        $list = $client->trend();
-        var_dump($list);
-
-        $this->assertNotEmpty($list);
-        $this->assertSame('100%', $list['summary']['items']['pvpro']);
-    }
-
-    public function testPage()
-    {
-        $client = Mockery::mock(Client::class . '[client]', ['xxx']);
-        $client->shouldReceive('client')->andReturn($this->client());
-        $list = $client->page();
-
-        $this->assertNotEmpty($list);
-        $this->assertSame('0', $list['summarysource']['items']['pv']);
-    }
-
     protected function client()
     {
         $client = Mockery::mock(\GuzzleHttp\Client::class);
@@ -113,12 +92,6 @@ class ClientTest extends AbstractTestCase
             }
             if (str_contains($url, 'getactivetrend')) {
                 $body = file_get_contents(__DIR__ . '/../get_active_trend.json');
-            }
-            if (str_contains($url, 'a=trend')) {
-                $body = file_get_contents(__DIR__ . '/../trend.json');
-            }
-            if (str_contains($url, 'a=page')) {
-                $body = file_get_contents(__DIR__ . '/../page.json');
             }
 
             return new Response(body: $body);
