@@ -32,7 +32,7 @@ class WebClient
         $config = [
             'base_uri' => $this->baseUri,
             'headers' => [
-                'cookie' => 'ap_ckid=' . $this->token,
+                'cookie' => 'umplus_uc_token=' . $this->token,
                 'user-agent' => $this->userAgent,
             ],
         ];
