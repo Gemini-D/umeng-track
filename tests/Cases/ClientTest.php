@@ -71,7 +71,6 @@ class ClientTest extends AbstractTestCase
         $client = Mockery::mock(Client::class . '[client]', ['xxx']);
         $client->shouldReceive('client')->andReturn($this->client());
         $list = $client->getActiveTrend('111', '222');
-        var_dump($list);
 
         $this->assertNotEmpty($list);
         $this->assertSame('2020-02-28', $list[0]['day']);
