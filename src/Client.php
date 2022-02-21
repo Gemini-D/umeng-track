@@ -38,6 +38,16 @@ class Client
         return new GuzzleHttp\Client($config);
     }
 
+    /**
+     * @return [[
+     *     'appid' => '1',
+     *     'app_name' => '',
+     *     'os_type' => '1', // 1安卓 2IOS
+     *     'app_key' => '',
+     *     'app_type' => '1', // 1安卓 2IOS
+     *     'os_name' => '',
+     * ]]
+     */
     public function getAppList(): array
     {
         $response = $this->client()
