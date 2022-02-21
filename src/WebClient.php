@@ -21,7 +21,7 @@ class WebClient
     protected $baseUri = 'https://web.umeng.com';
 
     /**
-     * @param string $token Cookies 中的 ap_ckid
+     * @param string $token Cookies 中的 umplus_uc_token
      */
     public function __construct(protected string $token, protected string $userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36')
     {
@@ -32,7 +32,7 @@ class WebClient
         $config = [
             'base_uri' => $this->baseUri,
             'headers' => [
-                'cookie' => 'ap_ckid=' . $this->token,
+                'cookie' => 'umplus_uc_token=' . $this->token,
                 'user-agent' => $this->userAgent,
             ],
         ];
