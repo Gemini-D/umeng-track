@@ -1,0 +1,58 @@
+{
+  "data": {
+    "summarysource": {
+      "items": {
+        "pv": "0",
+        "ip": "0",
+        "uv": "0",
+        "averageupv": "9.99",
+        "outpv": "-",
+        "averagestime": "-"
+      }
+    },
+    "safeinfo": "3",
+    "statistics": {
+      "items": [
+        {
+          "source": "https://www.example.com/pages/index/index",
+          "pv": "0",
+          "uv": "0",
+          "ip": "0",
+          "averageupv": "9.99",
+          "stime": "0",
+          "outpv": "0",
+          "averagestime": "9.99秒"
+        },
+        {
+          "source": "https://www.example.com/pages/exam/exam?id=301&channelid=K5_3_1_301",
+          "pv": "0",
+          "uv": "0",
+          "ip": "0",
+          "averageupv": "9.99",
+          "stime": "0",
+          "outpv": "0",
+          "averagestime": "0秒"
+        }
+      ],
+      "page": {
+        "totalCount": "2",
+        "pageSize": "2",
+        "totalPage": "2",
+        "currentPage": "1",
+        "beginIndex": "0",
+        "endIndex": "2",
+        "hasPrevious": "",
+        "hasNext": "1"
+      },
+      "pagetotal": {
+        "pv": "0",
+        "uv": "0",
+        "ip": "0",
+        "stime": "0",
+        "outpv": "0",
+        "averageupv": "9.99",
+        "averagestime": "9.99秒"
+      }
+    }
+  }
+}
