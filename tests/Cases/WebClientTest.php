@@ -9,12 +9,10 @@ declare(strict_types=1);
  * @contact  group@hyperf.io
  * @license  https://github.com/hyperf/hyperf/blob/master/LICENSE
  */
-
 namespace HyperfTest\Cases;
 
 use GuzzleHttp\Psr7\Response;
 use Mockery;
-use UMeng\Track\Exception\TokenExpiredException;
 use UMeng\Track\WebClient;
 
 /**
@@ -35,7 +33,7 @@ class WebClientTest extends AbstractTestCase
         $list = $client->trend();
 
         $this->assertNotEmpty($list);
-        $this->assertSame('0', $list ['summary']['items']['pv']);
+        $this->assertSame('0', $list['summary']['items']['pv']);
     }
 
     public function testPage()
@@ -44,8 +42,8 @@ class WebClientTest extends AbstractTestCase
         $client->shouldReceive('client')->andReturn($this->client());
         $list = $client->page();
 
-        $this->assertNotEmpty ( $list );
-        $this->assertSame ( '0', $list['summarysource']['items']['pv']);
+        $this->assertNotEmpty($list);
+        $this->assertSame('0', $list['summarysource']['items']['pv']);
     }
 
     protected function client()

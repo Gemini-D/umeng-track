@@ -39,10 +39,14 @@ class WebClient
         return new GuzzleHttp\Client($config);
     }
 
-    public function trend()
+    public function trend(bool $all = false)
     {
+        $date = date('Y-m-d', strtotime('-6 day'));
+        if ($all) {
+            $date = '2021-05-24';
+        }
         $response = $this->client()
-            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=1_pageType=30&siteid=1279951129&st=' . date('Y-m-d', strtotime('-6 day')) . '&et=' . date('Y-m-d') . '&_=' . $this->microtime_format());
+            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=1_pageType=90&siteid=1279951129&st=' . $date . '&et=' . date('Y-m-d') . '&_=' . $this->microtime_format());
 
         return $this->body($response);
     }
