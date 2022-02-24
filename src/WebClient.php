@@ -39,18 +39,34 @@ class WebClient
         return new GuzzleHttp\Client($config);
     }
 
-    public function trend()
+    public function trend(?string $startDate = null, ?string $endDate = null, int $currentPage = 1, int $pageType = 90)
     {
+        if (is_null($startDate)) {
+            $startDate = date('Y-m-d', strtotime('-6 day'));
+        }
+        if (is_null($endDate)) {
+            $endDate = date('Y-m-d');
+        }
         $response = $this->client()
-            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=1_pageType=30&siteid=1279951129&st=' . date('Y-m-d', strtotime('-6 day')) . '&et=' . date('Y-m-d') . '&_=' . $this->microtime_format());
+            ->get('main.php?c=flow&a=trend&ajax=module=summary|module=fluxList_currentPage=' . $currentPage . '_pageType=' . $pageType . '&siteid=1279951129&st=' . $startDate . '&et=' . $endDate . '&_=' . $this->microtime_format());
 
         return $this->body($response);
     }
 
-    public function page()
+    public function page(?string $startDate = null, ?string $endDate = null, int $currentPage = 1, int $pageType = 90)
     {
+        if (is_null($startDate)) {
+            $startDate = date('Y-m-d');
+        }
+        if (is_null($endDate)) {
+            $endDate = date('Y-m-d');
+        }
+        if (strtotime($startDate) > strtotime($endDate)) {
+            return [];
+        }
+
         $response = $this->client()
-            ->get('main.php?c=cont&a=page&ajax=module=summarysource|module=safeinfo|module=statistics_orderBy=pv_orderType=-1_dataType=source_currentPage=1_pageType=90&siteid=1279951129&st=' . date('Y-m-d') . '&et=' . date('Y-m-d') . '&sourcetype=&condtype=&condname=&condvalue=');
+            ->get('main.php?c=cont&a=page&ajax=module=summarysource|module=safeinfo|module=statistics_orderBy=pv_orderType=-1_dataType=source_currentPage=' . $currentPage . '_pageType=' . $pageType . '&siteid=1279951129&st=' . $startDate . '&et=' . $startDate . '&sourcetype=&condtype=&condname=&condvalue=');
 
         return $this->body($response);
     }
